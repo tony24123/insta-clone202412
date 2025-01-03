@@ -34,17 +34,22 @@ class CarouselManager {
   // 초기 이미지파일 배열 받기
   init(files) {
     this.slides = files;
+    // 슬라이드를 0번으로 다시 세팅
+    this.goToSlide(0);
     // 슬라이드 띄우기
     this.setUpPreview();
   }
 
   // 슬라이드 이미지 렌더링
   setUpPreview() {
+
     // 이미지 트랙 리셋
     this.track.innerHTML = '';
+    // 인디케이터 리셋
+    this.indicatorContainer.innerHTML = '';
 
     // 슬라이드 이미지 생성
-    this.slides.forEach((file, index) => { 
+    this.slides.forEach((file, index) => {
       // 이미지 생성
       const $img = document.createElement('img');
       // raw file을 image url로 변환
@@ -79,6 +84,17 @@ class CarouselManager {
     this.currentIndex = index;
     // 트랙 이동
     this.track.style.transform = `translateX(-${index * 100}%)`;
+
+    // 이전, 다음 슬라이드 버튼 활성화 여부
+    this.prevBtn.style.display = index === 0 ? 'none' : 'flex';
+    this.nextBtn.style.display = index === this.slides.length - 1 ? 'none' : 'flex';
+
+    // 인디케이터 변화 업데이트
+    const $indicators = [...this.indicatorContainer.children];
+    $indicators.forEach(($ind, i) => { 
+      $ind.classList.toggle('active', i === index);
+    });
+
   }
 
 }
