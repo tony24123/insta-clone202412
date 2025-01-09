@@ -13,6 +13,7 @@ import com.example.instagramclone.util.HashtagUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class PostService {
     private final HashtagUtil hashtagUtil; // 해시태그 추출기
 
     // 피드 목록조회 중간처리
+    @Transactional(readOnly = true)
     public List<PostResponse> findAllFeeds() {
         // 전체 피드 조회
         return postRepository.findAll()
@@ -80,15 +82,9 @@ public class PostService {
                         hashtagRepository.insertHashtag(newHashtag);
                         log.debug("new hashtag saved: {}", hashtagName);
                         return newHashtag;
-                    }) //일단 조회 후 NULL이 나오면 대체적으로 뭘할지
+                    }) // 일단 조회해보고 없으면(null)~~~ 대체적으로 뭘할지
                     ;
 
-//            // 해시태그 저장 명령
-//            if (foundHashtag == null) {
-//                foundHashtag = Hashtag.builder().name(hashtagName).build();
-//                hashtagRepository.insertHashtag(foundHashtag);
-//                log.debug("new hashtag saved: {}", hashtagName);
-//            }
             // 3. 해시태그와 피드를 연결해서 연결테이블에 저장
             PostHashtag postHashtag = PostHashtag.builder()
                     .postId(post.getId())
