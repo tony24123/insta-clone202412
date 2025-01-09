@@ -72,3 +72,20 @@ CREATE TABLE users
     INDEX idx_phone (콜),
     INDEX idx_username (username)
 );
+
+
+
+
+
+-- Users 테이블 생성
+CREATE TABLE IF NOT EXISTS user (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- 사용자 ID
+    username VARCHAR(255) NOT NULL,          -- 사용자 이름
+    email VARCHAR(255) NOT NULL,             -- 이메일
+    password VARCHAR(255) NOT NULL,          -- 비밀번호
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 가입 시간
+);
+
+-- UNIQUE 제약 조건 (email과 username은 중복될 수 없음)
+CREATE UNIQUE INDEX idx_username ON users (username);
+CREATE UNIQUE INDEX idx_email ON users (email);

@@ -37,6 +37,8 @@ dependencies {
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.projectlombok:lombok'
 
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // Spring Data JPA 의존성
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // Spring Security 관련 의존성

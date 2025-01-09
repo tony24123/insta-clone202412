@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/instagram_clone
-    username: root
-    password: mariadb
+    url: jdbc:mariadb://localhost:3306/instagram_clone  # DB 주소
+    username: root  # DB 사용자명
+    password: mariadb  # DB 비밀번호
   mvc:
     view:
       prefix: /WEB-INF/views/
@@ -15,19 +15,18 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
-
 mybatis:
   configuration:
-    map-underscore-to-camel-case: true
-  type-aliases-package: com.example.instagramclone.domain
-  mapper-locations: classpath:mapper/**/*.xml
+    map-underscore-to-camel-case: true  # Snake case와 Camel case 변환
+  type-aliases-package: com.example.instagramclone.domain  # MyBatis alias 패키지
+  mapper-locations: classpath:mapper/**/*.xml  # MyBatis XML 매퍼 위치
 
 logging:
   level:
     com:
       example:
-        instagramclone: debug
+        instagramclone: debug  # 로깅 레벨
 
 file:
   upload:
-    location: ${user.home}/instagram-clone/uploads/
+    location: ${user.home}/instagram-clone/uploads/  # 파일 업로드 경로
