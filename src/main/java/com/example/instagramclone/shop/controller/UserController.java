@@ -34,20 +34,20 @@ public class UserController {
         return userService.getUser(id);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<User>> getAllUser() {
-//        List<User> users = userService.getAllUsers();
-//        return ResponseEntity.ok(users);
-//    }
-
     @GetMapping
-    public ResponseEntity<?> UserList() {
-        List<UserDto> users = new ArrayList<>(userService.getAllUsers())
-                .stream()
-                .map(u-> new UserDto(u))
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok().body(users);
+    public ResponseEntity<List<UserDto>> getAllUser() {
+        List<UserDto> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
+
+//    @GetMapping
+//    public ResponseEntity<?> UserList() {
+//        List<UserDto> users = new ArrayList<>(userService.getAllUsers())
+//                .stream()
+//                .map(u-> new UserDto(u))
+//                .collect(Collectors.toList());
+//
+//        return ResponseEntity.ok().body(users);
+//    }
 
 }

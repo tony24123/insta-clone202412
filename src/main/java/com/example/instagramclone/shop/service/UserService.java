@@ -2,11 +2,13 @@ package com.example.instagramclone.shop.service;
 
 import com.example.instagramclone.shop.repository.UserRepository;
 import com.example.instagramclone.shop.user.User;
+import com.example.instagramclone.shop.user.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +32,10 @@ public class UserService {
     }
 
     //전체 유저 조회
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(u -> new UserDto(u))
+                .collect(Collectors.toList());
     }
 }
