@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/instagram_clone  # DB 주소
-    username: root  # DB 사용자명
-    password: mariadb  # DB 비밀번호
+    url: jdbc:mariadb://localhost:3306/instagram_clone
+    username: root
+    password: mariadb
   mvc:
     view:
       prefix: /WEB-INF/views/
@@ -15,18 +15,24 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
+
 mybatis:
   configuration:
-    map-underscore-to-camel-case: true  # Snake case와 Camel case 변환
-  type-aliases-package: com.example.instagramclone.domain  # MyBatis alias 패키지
-  mapper-locations: classpath:mapper/**/*.xml  # MyBatis XML 매퍼 위치
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.example.instagramclone.domain
+  mapper-locations: classpath:mapper/**/*.xml
 
 logging:
   level:
     com:
       example:
-        instagramclone: debug  # 로깅 레벨
+        instagramclone: debug
 
 file:
   upload:
-    location: ${user.home}/instagram-clone/uploads/  # 파일 업로드 경로
+    location: ${user.home}/instagram-clone/uploads/
+
+jwt:
+  secret-key: L6h/xMxGO53HQmR/OB99qR/y0kTr2CAyaI5RqBIX184=  # 토큰발급시와 토큰위조검사시 사용할 서명
+  access-token-validity-time: 3600000  # 1시간 (ms)
+  refresh-token-validity-time: 604800000 # 7일 (ms)

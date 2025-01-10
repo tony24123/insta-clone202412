@@ -32,7 +32,13 @@
         <div class="upload-area">
           <i class="fa-regular fa-images"></i>
           <p>사진과 동영상을 여기에 끌어다 놓으세요</p>
-          <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+          <input
+            type="file"
+            id="fileInput"
+            multiple
+            accept="image/*"
+            style="display: none;"
+          >
           <button class="upload-button">컴퓨터에서 선택</button>
         </div>
       </div>
@@ -41,13 +47,16 @@
       <div class="step preview-container">
         <div class="preview-area">
           <div class="carousel-container">
+            <!-- track: 이미지들을 배치 -->
             <div class="carousel-track"></div>
+
             <button class="carousel-prev">
               <i class="fa-solid fa-chevron-left"></i>
             </button>
             <button class="carousel-next">
               <i class="fa-solid fa-chevron-right"></i>
             </button>
+            <!-- 슬라이드 아랫부분 ... -->
             <div class="carousel-indicators"></div>
           </div>
         </div>
