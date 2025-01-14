@@ -38,4 +38,22 @@ public class RouteController {
         return "components/profile-page";
     }
 
+    //블랙잭 페이지 열기
+    @GetMapping("/bj")
+    public String openBlackJackpage() {
+        return "practice/blackjack";
+    }
+
+    //블랙잭 페이지 열기
+    @GetMapping("/bj/login")
+    public String openLogInPage() {
+        return "practice/bj-login";
+    }
+
+    @GetMapping("/bj/signUp")
+    public String openSignUpPage() {
+        return "practice/bj-signup";
+    }
+
+
 }
