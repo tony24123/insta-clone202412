@@ -69,23 +69,25 @@ CREATE TABLE users
     last_login_at     TIMESTAMP,
 
     INDEX idx_email (email),
-    INDEX idx_phone (콜),
+    INDEX idx_phone (phone),
     INDEX idx_username (username)
 );
 
+-- 기존 피드 와 해시태그 모두 삭제
+DELETE FROM post_hashtags;
+DELETE FROM hashtags;
+DELETE FROM posts;
 
+COMMIT;
 
+-- posts 테이블 수정
+ALTER TABLE posts
+    DROP COLUMN writer, -- 기존 writer 컬럼 제거
+    ADD COLUMN member_id BIGINT NOT NULL, -- 회원 ID 컬럼 추가
+    ADD CONSTRAINT fk_posts_member -- FK 제약조건 추가
+        FOREIGN KEY (member_id)
+            REFERENCES users (id)
+            ON DELETE CASCADE;
 
-
--- Users 테이블 생성
-CREATE TABLE IF NOT EXISTS user (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- 사용자 ID
-    username VARCHAR(255) NOT NULL,          -- 사용자 이름
-    email VARCHAR(255) NOT NULL,             -- 이메일
-    password VARCHAR(255) NOT NULL,          -- 비밀번호
-    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 가입 시간
-);
-
--- UNIQUE 제약 조건 (email과 username은 중복될 수 없음)
-CREATE UNIQUE INDEX idx_username ON users (username);
-CREATE UNIQUE INDEX idx_email ON users (email);
+-- 인덱스 추가
+CREATE INDEX idx_posts_member_id ON posts (member_id);
