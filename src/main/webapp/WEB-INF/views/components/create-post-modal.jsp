@@ -32,9 +32,9 @@
         <div class="upload-area">
           <i class="fa-regular fa-images"></i>
           <p>사진과 동영상을 여기에 끌어다 놓으세요</p>
-          <input
-            type="file"
-            id="fileInput"
+          <input 
+            type="file" 
+            id="fileInput" 
             multiple
             accept="image/*"
             style="display: none;"
@@ -49,7 +49,7 @@
           <div class="carousel-container">
             <!-- track: 이미지들을 배치 -->
             <div class="carousel-track"></div>
-
+            
             <button class="carousel-prev">
               <i class="fa-solid fa-chevron-left"></i>
             </button>

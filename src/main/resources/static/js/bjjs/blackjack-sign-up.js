@@ -6,6 +6,8 @@ async function fetchToSignUp(userData){
         body: JSON.stringify(userData)
     });
     console.log("회원가입 성공!");
+    alert("회원가입 성공");
+    document.querySelector('.signup-form').reset();
     
 }
 
@@ -20,7 +22,7 @@ function initSignUp() {
         const username = document.querySelector('input[name="username"]').value;
         const password = document.querySelector('input[name="password"]').value;
         const email = document.querySelector('input[name="email"]').value;
-        const passwordConfirm = document.querySelector('input[name="password-confirm"]').value;    
+        // const passwordConfirm = document.querySelector('input[name="password-confirm"]').value;    
     
         const payload = {
             newName : username ,

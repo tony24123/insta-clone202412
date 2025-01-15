@@ -13,7 +13,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!-- Modular CSS -->
-    <link rel="stylesheet" href="/css/.css">
+    <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/sidebar.css">
     <link rel="stylesheet" href="/css/stories.css">
     <link rel="stylesheet" href="/css/feed.css">
