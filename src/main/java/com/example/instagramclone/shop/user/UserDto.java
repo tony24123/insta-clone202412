@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+//클라이언트에게 전송해줄 DTO
 public class UserDto {
 
     private Long userId;

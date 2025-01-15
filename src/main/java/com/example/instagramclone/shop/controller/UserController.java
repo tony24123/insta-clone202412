@@ -51,9 +51,6 @@ public class UserController {
     @GetMapping("/getall")
     public ResponseEntity<?> UserList() {
         List<UserDto> users = new ArrayList<>(userService.getAllUsers());
-//                .stream()
-//                .map(u-> new UserDto(u))
-//                .collect(Collectors.toList());
         return ResponseEntity.ok().body(users);
     }
 

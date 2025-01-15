@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+//클라이언트로부터 온 요청
 public class signUpRequest {
     @NotBlank(message = "필수 입력창입니다.")
     private String newName;

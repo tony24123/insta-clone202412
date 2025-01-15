@@ -1,10 +1,11 @@
 //회원가입 정보를 서버에 전송
 async function fetchToSignUp(userData){
-    await fetch('/user/register', {
+    await fetch('/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(userData)
     });
+    console.log("회원가입 성공!");
     
 }
 
@@ -12,7 +13,7 @@ async function fetchToSignUp(userData){
 function initSignUp() {
 
     //form submit 이벤트
-    const $form = document.querySelector('.register-form');
+    const $form = document.querySelector('.signup-form');
     $form.addEventListener('submit', e => {
         e.preventDefault();
 
@@ -22,9 +23,9 @@ function initSignUp() {
         const passwordConfirm = document.querySelector('input[name="password-confirm"]').value;    
     
         const payload = {
-            username : username ,
-            email : email ,
-            password: password
+            newName : username ,
+            newEmail : email ,
+            newPassword: password
         };
 
         //서버로 데이터 전송송
