@@ -38,4 +38,10 @@ public class UserService {
                 .map(u -> new UserDto(u))
                 .collect(Collectors.toList());
     }
+
+    //회원가입 중간 처리
+    public void signUp(signUpRequest signUpRequest){
+        //데이터베이스에 저장
+        userRepository.insert(signUpRequest.toEntity());
+    }
 }
