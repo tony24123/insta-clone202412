@@ -3,7 +3,6 @@ package com.example.instagramclone.shop.user;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
