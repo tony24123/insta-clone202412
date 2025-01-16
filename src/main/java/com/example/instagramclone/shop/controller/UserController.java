@@ -27,7 +27,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    //회원 생성
+    //회원 생성(DB에 패스워드 암호화 X)
     @PostMapping
     public String  create(@RequestBody User user) {
         userService.createUser(user);
