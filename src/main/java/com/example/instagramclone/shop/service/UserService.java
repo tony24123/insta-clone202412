@@ -1,15 +1,20 @@
 package com.example.instagramclone.shop.service;
 
+import com.example.instagramclone.exception.ErrorCode;
+import com.example.instagramclone.exception.MemberException;
 import com.example.instagramclone.shop.config.PasswordEncoderConfig;
 import com.example.instagramclone.shop.repository.UserRepository;
 import com.example.instagramclone.shop.user.User;
 import com.example.instagramclone.shop.user.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,5 +62,31 @@ public class UserService {
         newUser.setPassword(encodedPassword);
         //데이터베이스에 저장
         userRepository.insert(newUser);
+    }
+
+    //로그인 처리
+    @Transactional(readOnly = true)
+    public Map<String, Object> authenticate(LoginRequest loginRequest) {
+        String username = loginRequest.getUsername();
+
+        User foundUser = userRepository.findByUserName(username)
+                .orElseThrow(
+                        () -> new MemberException(ErrorCode.MEMBER_NOT_FOUND, "존재하지 않는 회원입니다.")
+                );
+        //사용자가 입력한 패스워드와 DB에 저장된 패스워드를 추출
+        String inputPassword = loginRequest.getPassword();
+        String storedpassword = foundUser.getPassword();
+
+        //암호화된 비번 디코딩해서 비교해야함
+        //같으면 true 다르면 false
+        if (!passwordEncoder.matches(inputPassword,storedpassword)) {
+            throw new MemberException(ErrorCode.INVALID_PASSWORD);
+        }
+
+        //로그인 성공했을때 JSON 생성
+        return Map.of(
+                "message","로그인에 성공했습니다.",
+                "username", foundUser.getUsername()
+        );
     }
 }

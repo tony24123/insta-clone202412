@@ -2,6 +2,7 @@ package com.example.instagramclone.shop.controller;
 
 
 import com.example.instagramclone.shop.repository.UserRepository;
+import com.example.instagramclone.shop.service.LoginRequest;
 import com.example.instagramclone.shop.service.UserService;
 import com.example.instagramclone.shop.service.signUpRequest;
 import com.example.instagramclone.shop.user.User;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -63,6 +65,13 @@ public class UserController {
         return ResponseEntity
                 .ok()
                 .body("user registered!");
+    }
+
+    //로그인 요청 받아오기
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest){
+        Map<String, Object> responseMap = userService.authenticate(loginRequest);
+        return ResponseEntity.ok().body(responseMap);
     }
 
 ////    @PostMapping("/register")

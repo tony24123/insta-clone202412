@@ -10,6 +10,10 @@ import java.util.Optional;
 
 @Mapper
 public interface UserRepository {
+
+    //아이디 조회
+    Optional<User> findByUserName(String username);
+
     //유저 생성
     void insert(User user);
 

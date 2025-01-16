@@ -17,6 +17,13 @@
         WHERE id = #{id}
     </select>
 
+    <select id="findByUserName" resultType="com.example.instagramclone.shop.user.User">
+        SELECT
+        *
+        FROM user
+        WHERE username = #{username}
+    </select>
+
     <select id="findAll" resultType="com.example.instagramclone.shop.user.User">
         SELECT
         *
