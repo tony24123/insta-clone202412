@@ -7,11 +7,11 @@ async function fetchToLogin(userData) {
     });
     console.log("로그인!");
     alert("로그인 성공");
-    document.querySelector('.login-form').reset();
+    document.querySelector('.bj-login-form').reset();
 }
 
 function initLogin() {
-    const $form = document.querySelector('.login-form');
+    const $form = document.querySelector('.bj-login-form');
     $form.addEventListener('submit', e => {
         e.preventDefault();
 

@@ -11,6 +11,7 @@
     <title>Blackjack 로그인</title>
     <link rel="stylesheet" href="/css/bjcss/reset.css">
     <link rel="stylesheet" href="/css/bjcss/bj-login.css">
+    <script src="/js/bjjs/Blackjack-login.js" defer></script>
 </head>
 <body>
     <header class="login-header">
@@ -19,7 +20,7 @@
     <main class="login-container">
         <section class="login-form">
             <h2>로그인</h2>
-            <form action="/login" method="post">
+            <form class="bj-login-form">
                 <div class="form-group">
                     <label for="username">아이디</label>
                     <input type="text" id="username" name="username" placeholder="아이디를 입력하세요" required>
