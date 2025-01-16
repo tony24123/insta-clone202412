@@ -2,6 +2,7 @@ package com.example.instagramclone.shop.service;
 
 import com.example.instagramclone.exception.ErrorCode;
 import com.example.instagramclone.exception.MemberException;
+import com.example.instagramclone.jwt.JwtTokenProvider;
 import com.example.instagramclone.shop.config.PasswordEncoderConfig;
 import com.example.instagramclone.shop.repository.UserRepository;
 import com.example.instagramclone.shop.user.User;
@@ -23,6 +24,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
 //    @Autowired
 //    public UserService(UserRepository userRepository) {
@@ -48,13 +50,13 @@ public class UserService {
     }
 
     //회원가입 중간 처리
-    public void signUp(signUpRequest signUpRequest){
+    public void signUp(signUpRequest signUpRequest) {
 
         //순수 비밀번호
         String rawPassword = signUpRequest.getNewPassword();
         //암호화된 비밀번호
-        String encodedPassword= passwordEncoder.encode(rawPassword);
-        
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+
 
         //회원정보
         User newUser = signUpRequest.toEntity();
@@ -79,14 +81,16 @@ public class UserService {
 
         //암호화된 비번 디코딩해서 비교해야함
         //같으면 true 다르면 false
-        if (!passwordEncoder.matches(inputPassword,storedpassword)) {
+        if (!passwordEncoder.matches(inputPassword, storedpassword)) {
             throw new MemberException(ErrorCode.INVALID_PASSWORD);
         }
 
         //로그인 성공했을때 JSON 생성
         return Map.of(
-                "message","로그인에 성공했습니다.",
-                "username", foundUser.getUsername()
+                "message", "로그인에 성공했습니다.",
+                "username", foundUser.getUsername(),
+                //토큰 발급
+                "accessToken", jwtTokenProvider.createAccessToken(username)
         );
     }
 }

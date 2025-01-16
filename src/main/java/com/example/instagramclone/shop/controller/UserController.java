@@ -30,11 +30,11 @@ public class UserController {
     }
 
     //회원 생성(DB에 패스워드 암호화 X)
-    @PostMapping
-    public String  create(@RequestBody User user) {
-        userService.createUser(user);
-        return "insert success";
-    }
+//    @PostMapping
+//    public String  create(@RequestBody User user) {
+//        userService.createUser(user);
+//        return "insert success";
+//    }
 
     //회원 한명 조회
     @GetMapping("/{id}")
@@ -56,23 +56,23 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
-    //회원가입 요청 받아오기
-    @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody @Valid signUpRequest signUpRequest){
-        log.info("request for signup : {}", signUpRequest.getNewName());
-        userService.signUp(signUpRequest);
-
-        return ResponseEntity
-                .ok()
-                .body("user registered!");
-    }
-
-    //로그인 요청 받아오기
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest){
-        Map<String, Object> responseMap = userService.authenticate(loginRequest);
-        return ResponseEntity.ok().body(responseMap);
-    }
+//    //회원가입 요청 받아오기
+//    @PostMapping("/auth/signup")
+//    public ResponseEntity<?> signUp(@RequestBody @Valid signUpRequest signUpRequest){
+//        log.info("request for signup : {}", signUpRequest.getNewName());
+//        userService.signUp(signUpRequest);
+//
+//        return ResponseEntity
+//                .ok()
+//                .body("user registered!");
+//    }
+//
+//    //로그인 요청 받아오기
+//    @PostMapping("/auth/login")
+//    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest){
+//        Map<String, Object> responseMap = userService.authenticate(loginRequest);
+//        return ResponseEntity.ok().body(responseMap);
+//    }
 
 ////    @PostMapping("/register")
 ////public String  createUser(@RequestBody User user) {
