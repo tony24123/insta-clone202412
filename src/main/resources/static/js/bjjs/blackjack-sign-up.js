@@ -1,6 +1,6 @@
 //회원가입 정보를 서버에 전송
 async function fetchToSignUp(userData){
-    await fetch('/user/auth/signup', {
+    await fetch('/api/user/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(userData)

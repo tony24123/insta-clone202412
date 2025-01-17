@@ -1,5 +1,5 @@
 async function fetchToLogin(userData) {
-  await fetch("/user/auth/login", {
+  await fetch("/api/user/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
