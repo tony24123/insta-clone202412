@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController("shopAuthController")
-@RequestMapping("/user/auth")
+@RequestMapping("/api/user/auth")
 public class AuthController {
     private final UserService userService;
 

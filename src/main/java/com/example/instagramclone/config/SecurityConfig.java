@@ -35,12 +35,22 @@ public class SecurityConfig {
                 // 인가 설정
                 .authorizeHttpRequests(auth ->
                         auth
-                                // '/api/auth'로 시작하는 요청은 인증을 필요로 하지 않음
-                                .requestMatchers("/api/auth/**").permitAll()
-                                // '/api'로 시작하는 요청은 모두 인증을 필수로 적용
-                                .requestMatchers("/api/**").authenticated()
+                                //Instagram URL 인증
+//                                // '/api/auth'로 시작하는 요청은 인증을 필요로 하지 않음
+//                                .requestMatchers("/api/auth/**").permitAll()
+//                                // '/api'로 시작하는 요청은 모두 인증을 필수로 적용
+//                                .requestMatchers("/api/**").authenticated()
+//                                // 기타 등등 나머지(jsp, css, js, image...)는 모두 허용
+//                                .anyRequest().permitAll()
+
+                                //Shop URL 인증
+                                // '/user/auth'로 시작하는 요청은 인증을 필요로 하지 않음
+                                .requestMatchers("/api/user/auth/**").permitAll()
+                                // '/user'로 시작하는 요청은 모두 인증을 필수로 적용
+                                .requestMatchers("/api/user/**").authenticated()
                                 // 기타 등등 나머지(jsp, css, js, image...)는 모두 허용
                                 .anyRequest().permitAll()
+
                 )
                 // 토큰을 검사하는 커스텀 인증필터를 시큐리티에 등록
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
