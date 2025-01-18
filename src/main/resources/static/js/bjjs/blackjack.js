@@ -561,8 +561,27 @@ function chipSetting() {
   $bettingChip.textContent = bettingChip;
 }
 
+//서버로부터 모든 유저정보를 불러오는 함수수
+async function fetchUserData() {
+
+  //토큰 가져오기
+  const token = localStorage.getItem('accessToken')
+  //서버 요청시 토큰을 헤더에 포함해서 요청해야 함
+  const response = await fetch('/api/user', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  if(!response.ok) alert('정보를 갱신하는데 실패했습니다.');
+  const jsondata = await response.json();
+  console.log(jsondata);
+  return jsondata;
+}
+
 //*게임 시작
 function startGame() {
+  fetchUserData();
   if (gameRound < 5) {
     console.log(`현재 보유칩은 : ${myCoin}입니다.`);
 
