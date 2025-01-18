@@ -6,6 +6,8 @@ import com.example.instagramclone.shop.service.UserService;
 import com.example.instagramclone.shop.service.signUpRequest;
 import com.example.instagramclone.shop.user.User;
 import com.example.instagramclone.shop.user.UserDto;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +43,25 @@ public class AuthController {
 
     //로그인 요청 받아오기
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest){
+    public ResponseEntity<?> login(
+            @RequestBody @Valid LoginRequest loginRequest
+            , HttpServletResponse response
+    ){
         Map<String, Object> responseMap = userService.authenticate(loginRequest);
+
+        //로그인 성공시 클라이언트에게 두가지 인증 정보를 전달한다.
+
+        //1. API요청을 위한 토큰 정보를 JSON에 담아 전달하고
+        //2. 두번째는 페이지 라우팅 요청을 위한 쿠키를 구워서 전달해야 함.
+        Cookie cookie = new Cookie("accessToken", (String) responseMap.get("accessToken"));
+        //쿠키의 수명 , 사용경로 , 보안 등을 설정
+        cookie.setMaxAge(60 * 60); //단위 : 초
+        cookie.setPath("/bj");
+        cookie.setHttpOnly(true); //보안설정 - 자바스크립트에서 쿠키에 접근 불가
+
+        //쿠키를 클라이언트에게 전송
+        response.addCookie(cookie);
+
         return ResponseEntity.ok().body(responseMap);
     }
 

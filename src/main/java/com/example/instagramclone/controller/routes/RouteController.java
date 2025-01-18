@@ -40,7 +40,13 @@ public class RouteController {
 
     //블랙잭 페이지 열기
     @GetMapping("/bj")
-    public String openBlackJackpage() {
+    public String openBlackJackpage(
+            @AuthenticationPrincipal String username
+    ) {
+        log.info("메인페이지에서 인증된 사용자명: {}", username);
+        if (username.equals("anonymousUser")) {
+            return "practice/bj-login";
+        }
         return "practice/blackjack";
     }
 
