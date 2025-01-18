@@ -1,12 +1,19 @@
 async function fetchToLogin(userData) {
-  await fetch("/api/user/auth/login", {
+  const response = await fetch("/api/user/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
   });
-  console.log("로그인!");
-  alert("로그인 성공");
-  document.querySelector(".bj-login-form").reset();
+
+  const data = await response.json();
+  //로그인이 성공할 시 처리
+  if(response.ok){
+    //홈화면으로 이동
+    window.location.href = '/bj';
+  }else {
+    alert("로그인 실패!");
+  }
+  // document.querySelector(".bj-login-form").reset();
 }
 
 function initLogin() {
