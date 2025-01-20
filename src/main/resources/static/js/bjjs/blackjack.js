@@ -566,9 +566,7 @@ function compareTotalSum() {
 async function chipSetting() {
   // $myCoin.textContent = myCoin - bettingChip;
   const currentUserDto = await fetchUserData();
-
-  // console.log(currentUserDto);
-  // console.log(currentUserDto.username);
+  
   console.log(currentUserDto.gameChips);
   console.log(currentUserName);
 
