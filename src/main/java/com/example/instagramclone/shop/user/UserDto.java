@@ -20,6 +20,7 @@ public class UserDto {
     private String userEmail;
 //    private String userPassword;
     private String date;
+    private int gameChips;
 
 
     public UserDto(User u) {
@@ -29,6 +30,6 @@ public class UserDto {
         this.userEmail = u.getEmail().length() > 5 ? u.getEmail().substring(0, 5) + "..." : u.getEmail();
 //        this.userPassword = u.getPassword().length()> 6 ? u.getPassword().substring(0,u.getPassword().length()-2) + "**" : u.getPassword() ;
         this.date = u.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-
+        this.gameChips = u.getGameChips();
     }
 }
