@@ -565,14 +565,14 @@ function compareTotalSum() {
 //베팅설정
 async function chipSetting() {
   // $myCoin.textContent = myCoin - bettingChip;
-  // const currentUserDto = await fetchUserData();
+  const currentUserDto = await fetchUserData();
 
   // console.log(currentUserDto);
   // console.log(currentUserDto.username);
-  console.log(myCoin);
+  console.log(currentUserDto.gameChips);
   console.log(currentUserName);
 
-  $myCoin.textContent = myCoin - bettingChip; //데이터베이스에 유저 보유칩
+  $myCoin.textContent = currentUserDto.gameChips - bettingChip; //데이터베이스에 유저 보유칩
   $bettingChip.textContent = bettingChip;
 }
 
