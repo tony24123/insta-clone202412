@@ -5,12 +5,15 @@ import com.example.instagramclone.shop.repository.UserRepository;
 import com.example.instagramclone.shop.service.LoginRequest;
 import com.example.instagramclone.shop.service.UserService;
 import com.example.instagramclone.shop.service.signUpRequest;
+import com.example.instagramclone.shop.user.MeResponse;
 import com.example.instagramclone.shop.user.User;
 import com.example.instagramclone.shop.user.UserDto;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,9 +21,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Slf4j
+
 @RestController
 @RequestMapping("/api/user")
+@Slf4j
 public class UserController {
     private final UserService userService;
 
@@ -28,13 +32,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-    //회원 생성(DB에 패스워드 암호화 X)
-//    @PostMapping
-//    public String  create(@RequestBody User user) {
-//        userService.createUser(user);
-//        return "insert success";
-//    }
 
     //회원 한명 조회
     @GetMapping("/{id}")
@@ -56,27 +53,13 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
-//    //회원가입 요청 받아오기
-//    @PostMapping("/auth/signup")
-//    public ResponseEntity<?> signUp(@RequestBody @Valid signUpRequest signUpRequest){
-//        log.info("request for signup : {}", signUpRequest.getNewName());
-//        userService.signUp(signUpRequest);
-//
-//        return ResponseEntity
-//                .ok()
-//                .body("user registered!");
-//    }
-//
-//    //로그인 요청 받아오기
-//    @PostMapping("/auth/login")
-//    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest){
-//        Map<String, Object> responseMap = userService.authenticate(loginRequest);
-//        return ResponseEntity.ok().body(responseMap);
-//    }
+    //로그인한 유저의 정보 조회
+    @GetMapping("/currentUser")
+    public ResponseEntity<MeResponse> getCurrentUser(
+            @AuthenticationPrincipal String username
+    ) {
+        MeResponse responseDto = userService.currentLoggedInUser(username);
 
-////    @PostMapping("/register")
-////public String  createUser(@RequestBody User user) {
-////    userService.createUser(user);
-////    return "insert success";
-//}
+        return ResponseEntity.ok().body(responseDto);
+    }
 }

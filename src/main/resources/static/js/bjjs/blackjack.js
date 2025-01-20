@@ -567,7 +567,7 @@ async function fetchUserData() {
   //토큰 가져오기
   const token = localStorage.getItem('accessToken')
   //서버 요청시 토큰을 헤더에 포함해서 요청해야 함
-  const response = await fetch('/api/user', {
+  const response = await fetch('/api/user/currentUser', {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${token}`
