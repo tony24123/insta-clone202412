@@ -62,4 +62,15 @@ public class UserController {
 
         return ResponseEntity.ok().body(responseDto);
     }
+
+    //보유칩 업데이트
+    @PutMapping("/updateChips")
+    public  ResponseEntity<?> updateUserChips(
+            @RequestBody @Valid MeResponse meResponse
+    ){
+        userService.updateGameChips(meResponse);
+        return ResponseEntity
+                .ok()
+                .body("chips Update!");
+    }
 }

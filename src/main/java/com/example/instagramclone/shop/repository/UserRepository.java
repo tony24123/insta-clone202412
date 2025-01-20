@@ -2,6 +2,7 @@ package com.example.instagramclone.shop.repository;
 
 
 import com.example.instagramclone.domain.post.entity.Post;
+import com.example.instagramclone.shop.user.MeResponse;
 import com.example.instagramclone.shop.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,4 +23,7 @@ public interface UserRepository {
 
     //전체 유저 조회
     List<User> findAll();
+
+    //보유 칩 업데이트
+    void update(MeResponse meResponse);
 }

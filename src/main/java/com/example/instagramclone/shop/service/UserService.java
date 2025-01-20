@@ -16,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -107,5 +108,10 @@ public class UserService {
                 //토큰 발급
                 "accessToken", jwtTokenProvider.createAccessToken(username)
         );
+    }
+
+    //보유칩 업데이트
+    public  void updateGameChips(MeResponse meResponse){
+        userRepository.update(meResponse);
     }
 }
