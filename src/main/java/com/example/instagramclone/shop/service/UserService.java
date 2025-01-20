@@ -5,21 +5,27 @@ import com.example.instagramclone.exception.MemberException;
 import com.example.instagramclone.jwt.JwtTokenProvider;
 import com.example.instagramclone.shop.config.PasswordEncoderConfig;
 import com.example.instagramclone.shop.repository.UserRepository;
+import com.example.instagramclone.shop.user.MeResponse;
 import com.example.instagramclone.shop.user.User;
 import com.example.instagramclone.shop.user.UserDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -39,6 +45,16 @@ public class UserService {
     //유저 조회
     public User getUser(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+    }
+
+    //로그인된 유저 조회
+    @Transactional(readOnly = true)
+    public MeResponse currentLoggedInUser(String username) {
+        User foundUser = userRepository.findByUserName(username)
+                .orElseThrow(
+                        () -> new MemberException(ErrorCode.MEMBER_NOT_FOUND)
+        );
+        return MeResponse.from(foundUser);
     }
 
     //전체 유저 조회
@@ -92,5 +108,10 @@ public class UserService {
                 //토큰 발급
                 "accessToken", jwtTokenProvider.createAccessToken(username)
         );
+    }
+
+    //보유칩 업데이트
+    public  void updateGameChips(MeResponse meResponse){
+        userRepository.update(meResponse);
     }
 }

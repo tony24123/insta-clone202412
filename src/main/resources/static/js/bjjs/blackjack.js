@@ -314,11 +314,13 @@ let cards = [
   },
 ];
 
+let currentUserName; //현재 로그인 된 유저 아이디디
+
 let newRandomCard;
 let newCardArr = []; //게임 진행 중에 뽑힌 카드가 쌓인 배열
 let alReadyCard = 0;
 let bettingChip = 10;
-let myCoin = 500;
+let myCoin;
 let currentCardValue = 0; //뽑힌 카드의 값
 let dealerTotalSum = 0;
 let playerTotalSum = 0;
@@ -550,33 +552,48 @@ function compareTotalSum() {
     // console.log("무승부");
   }
   console.log(newCardArr);
+  console.log(`현재 로그인된 유저 : ${currentUserName},${myCoin}`);
+  
+
+  //데이터베이스에 현재 보유 칩 업데이트 요청
+  fetchToData();
 
   //*다음판을 위한 초기화
   setTimeout(resetGame, 1500);
 }
 
 //베팅설정
-function chipSetting() {
-  $myCoin.textContent = myCoin - bettingChip;
+async function chipSetting() {
+  // $myCoin.textContent = myCoin - bettingChip;
+  // const currentUserDto = await fetchUserData();
+
+  // console.log(currentUserDto);
+  // console.log(currentUserDto.username);
+  console.log(myCoin);
+  console.log(currentUserName);
+
+  $myCoin.textContent = myCoin - bettingChip; //데이터베이스에 유저 보유칩
   $bettingChip.textContent = bettingChip;
 }
 
-//서버로부터 모든 유저정보를 불러오는 함수수
+//서버로부터 로그인한 유저 보유칩 개수를 불러오는 함수
 async function fetchUserData() {
-
   //토큰 가져오기
-  const token = localStorage.getItem('accessToken')
+  const token = localStorage.getItem("accessToken");
   //서버 요청시 토큰을 헤더에 포함해서 요청해야 함
-  const response = await fetch('/api/user', {
-    method: 'GET',
+  const response = await fetch("/api/user/currentUser", {
+    method: "GET",
     headers: {
-      'Authorization': `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    },
   });
-  if(!response.ok) alert('정보를 갱신하는데 실패했습니다.');
-  const jsondata = await response.json();
-  console.log(jsondata);
-  return jsondata;
+  if (!response.ok) alert("정보를 갱신하는데 실패했습니다.");
+  //jsonData = 현재 로그인한 유저 이름 + 보유 게임칩칩
+  const jsonData = await response.json();
+  currentUserName = jsonData.username;
+  myCoin = jsonData.gameChips;
+  // console.log(jsonData);
+  return jsonData;
 }
 
 //*게임 시작

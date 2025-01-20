@@ -10,6 +10,12 @@
         (#{username}, #{password}, #{email})
     </insert>
 
+    <update id="update">
+        UPDATE user
+        SET game_chips = #{gameChips}
+        WHERE username = #{username}
+    </update>
+
     <select id="findById" resultType="com.example.instagramclone.shop.user.User">
         SELECT
         *
