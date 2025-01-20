@@ -109,3 +109,14 @@ CREATE TABLE comments
 -- 조회 성능을 위한 인덱스 추가
 CREATE INDEX idx_comments_post_id ON comments (post_id);
 CREATE INDEX idx_comments_member_id ON comments (member_id);
+
+
+--blackjsck user 테이블
+CREATE TABLE user (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    game_chips INT DEFAULT 500
+);
