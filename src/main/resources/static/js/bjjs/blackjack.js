@@ -556,12 +556,19 @@ function compareTotalSum() {
 }
 
 //베팅설정
-function chipSetting() {
-  $myCoin.textContent = myCoin - bettingChip;
+async function chipSetting() {  
+  // $myCoin.textContent = myCoin - bettingChip;
+  const currentUserDto = await fetchUserData();  
+
+  // console.log(currentUserDto);
+  // console.log(currentUserDto.username);
+  console.log(currentUserDto.gameChips);   
+  
+  $myCoin.textContent = currentUserDto.gameChips; //데이터베이스에 유저 보유칩
   $bettingChip.textContent = bettingChip;
 }
 
-//서버로부터 모든 유저정보를 불러오는 함수수
+//서버로부터 로그인한 유저 보유칩 개수를 불러오는 함수
 async function fetchUserData() {
 
   //토큰 가져오기
@@ -574,9 +581,10 @@ async function fetchUserData() {
     }
   });
   if(!response.ok) alert('정보를 갱신하는데 실패했습니다.');
-  const jsondata = await response.json();
-  console.log(jsondata);
-  return jsondata;
+  //jsonData = 현재 로그인한 유저 이름 + 보유 게임칩칩
+  const jsonData = await response.json();
+  // console.log(jsonData);  
+  return jsonData;
 }
 
 //*게임 시작
