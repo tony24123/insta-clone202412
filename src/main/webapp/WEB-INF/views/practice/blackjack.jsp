@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/bjcss/blackjack.css" />
     <script src="/js/bjjs/blackjack.js" defer></script>
     <script src="/js/bjjs/blackjack-update-chip.js" defer></script>
+    <script src="/js/bjjs/blackjack-save-result.js" defer></script>
   </head>
   <body>
     <header class="top">
