@@ -315,7 +315,7 @@ let cards = [
 ];
 
 let currentUserName; //현재 로그인 된 유저 아이디디
-
+let currentUserId; //현재 로그인 된 유저
 let newRandomCard;
 let newCardArr = []; //게임 진행 중에 뽑힌 카드가 쌓인 배열
 let alReadyCard = 0;
@@ -565,7 +565,7 @@ function compareTotalSum() {
   fetchToData();
 
   //데이터베이스에 전적 기록 요청
-  // fetchToSaveData();
+  fetchToSaveData();
 
   //*다음판을 위한 초기화
   setTimeout(resetGame, 1500);
@@ -595,10 +595,11 @@ async function fetchUserData() {
     },
   });
   if (!response.ok) alert("정보를 갱신하는데 실패했습니다.");
-  //jsonData = 현재 로그인한 유저 이름 + 보유 게임칩칩
+  //jsonData = 현재 로그인한 유저 이름 + 보유 게임칩
   const jsonData = await response.json();
-  currentUserName = jsonData.username;
-  myCoin = jsonData.gameChips;
+  currentUserId = jsonData.userId; //로그인된 유저 고유아이디
+  currentUserName = jsonData.username; //로그인된 유저 이름름
+  myCoin = jsonData.gameChips; //로그인된 유저 칩 보유량
   // console.log(jsonData);
   return jsonData;
 }

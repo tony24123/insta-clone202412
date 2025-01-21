@@ -111,7 +111,7 @@ CREATE INDEX idx_comments_post_id ON comments (post_id);
 CREATE INDEX idx_comments_member_id ON comments (member_id);
 
 
---blackjsck user 테이블
+--blackjack user 테이블
 CREATE TABLE user (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
@@ -121,6 +121,7 @@ CREATE TABLE user (
     game_chips INT DEFAULT 500
 );
 
+--blackjack 전적 기록 테이블
 CREATE TABLE game_history (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,  -- 전적의 고유 ID
     user_id BIGINT NOT NULL,               -- 사용자 ID (User 테이블과의 외래키)
