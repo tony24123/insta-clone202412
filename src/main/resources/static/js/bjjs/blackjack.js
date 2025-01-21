@@ -326,6 +326,8 @@ let dealerTotalSum = 0;
 let playerTotalSum = 0;
 let isDoubleClick = false;
 
+let result; //게임 결과
+
 let gameRound = 0; // 게임 회차를 추적
 
 const $dealerCard = document.querySelector(".dealer-card");
@@ -540,6 +542,7 @@ function compareTotalSum() {
     openRoundModal();
     // console.log("딜러 승");
     myCoin = myCoin - bettingChip;
+    result = "Lose";    
   } else if (
     (dealerTotalSum < playerTotalSum && playerTotalSum <= 21) ||
     dealerTotalSum > 21
@@ -547,16 +550,22 @@ function compareTotalSum() {
     openRoundModal();
     // console.log("플레이어 승");
     myCoin = myCoin + bettingChip;
+    result = "Win";
   } else {
     openRoundModal();
     // console.log("무승부");
+    result = "Draw";
   }
   console.log(newCardArr);
+  console.log(result);
   console.log(`현재 로그인된 유저 : ${currentUserName},${myCoin}`);
   
 
   //데이터베이스에 현재 보유 칩 업데이트 요청
   fetchToData();
+
+  //데이터베이스에 전적 기록 요청
+  // fetchToSaveData();
 
   //*다음판을 위한 초기화
   setTimeout(resetGame, 1500);
@@ -622,6 +631,7 @@ function resetGame() {
   newCardArr = []; // 카드 배열 초기화
   alReadyCard = 0; // 카드 중복 방지 초기화
   bettingChip = 10;
+  result = ""; //결과 초기화
 
   $hit.addEventListener("click", hitClickHandler);
   $double.addEventListener("click", doubleClickHandler);
