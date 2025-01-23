@@ -64,10 +64,17 @@ public class UserController {
     }
 
     //보유칩 업데이트
+    //요청을 meResponse로 받는 것이 원칙에 어긋남 -> 요청을 받을 meRequest를 만들어야 함
+    //클라이언트에서 받아오는 값 - 유저이름 , 보유 칩 개수
+    //meResponse에 선언된 필드 중 id는 받아오지 않고 있음 id = null
+    //문제가 발생하지 않는 것처럼 보이는 이유 :
+    //Repository에서 update할때 코인 개수와 username만 필요로 하기 때문에 id가 null값으로 표기되고 있는데도 문제가 발생하지 않는다.
     @PutMapping("/updateChips")
     public  ResponseEntity<?> updateUserChips(
             @RequestBody @Valid MeResponse meResponse
+
     ){
+        log.info("meResponse: {}", meResponse); //문제 상황 : meResponse에서 id값은 null로 표기되고 있다.
         userService.updateGameChips(meResponse);
         return ResponseEntity
                 .ok()

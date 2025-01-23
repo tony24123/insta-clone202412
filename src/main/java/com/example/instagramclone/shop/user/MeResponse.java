@@ -2,10 +2,12 @@ package com.example.instagramclone.shop.user;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 //현재 로그인된 유저 정보 요청 DTO
 @Getter
 @Builder
+@ToString
 public class MeResponse {
     private Long userId;
     private String username;
